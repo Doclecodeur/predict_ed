@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Données MIMIC-IV — redistribution interdite (DUA PhysioNet)
+data/
+*.csv
+*.parquet
+
+# Modèles et artefacts entraînés
+models/
+*.pkl
+*.joblib
+
+# Sorties volumineuses
+results/
+figures/
