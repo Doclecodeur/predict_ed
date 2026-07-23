@@ -7,7 +7,7 @@ Modèle de pré-alerte estimant, dès le triage, la probabilité qu'un patient a
 > ⚠️ **Outil d'aide à l'organisation, non d'aide à la décision médicale.**
 > Le modèle est conçu comme une **pré-alerte organisationnelle** destinée à la gestion des lits (anticipation des besoins d'aval). Il n'a pas vocation à orienter une décision clinique individuelle et n'a fait l'objet d'aucune validation prospective ni d'aucun marquage réglementaire.
 
-Travail réalisé dans le cadre du **DU Data Analytics — Sorbonne Paris Nord**, promotion 2025-2026.
+Travail réalisé dans le cadre du **DU Data Analytics — Sorbonne Panthéon**, promotion 2025-2026.
 
 ---
 
