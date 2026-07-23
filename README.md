@@ -163,9 +163,11 @@ Code released under the MIT License (see `LICENSE`). This license covers **the c
 
 ## Author
 
-**Wilguy DOISY** — Surgeon and biostatistician
-DU Data Analytics, Université Paris 1 Panthéon-Sorbonne, 2025-2026 cohort
+**Wilguy DOISY** — Chirurgien et Biostatisticien
+DU Data Analytics, Université Sorbonne Panthéon, promotion 2025-2026
+
 ---
+
 *[Version française](README.md)*
 # PREDICT-ED
 
