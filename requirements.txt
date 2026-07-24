@@ -1,0 +1,51 @@
+# =====================================================================
+# PREDICT-ED — Environnement d'exécution
+# Prédiction précoce de la probabilité d'hospitalisation à l'issue d'un
+# passage aux urgences adultes — MIMIC-IV ED — notebooks NB01 à NB08
+#
+# Environnement de référence :
+#   Python 3.13.13 — Windows 11 — Anaconda
+#   GPU NVIDIA RTX 4060 Laptop (CUDA 12.4) — utilisé par NB08 uniquement
+#
+# Versions relevées sur l'environnement ayant produit les résultats
+# rapportés dans les notebooks. Les modules de la bibliothèque standard
+# (os, re, json, pathlib, collections, warnings, gc…) ne figurent pas ici.
+#
+#   pip install -r requirements.txt
+# =====================================================================
+
+# --- Manipulation de données et calcul scientifique -------------------
+pandas==3.0.2
+numpy==2.4.4
+scipy==1.17.1
+
+# --- Modélisation et interprétabilité ---------------------------------
+scikit-learn==1.8.0    # régression logistique, Random Forest, MLPClassifier, TF-IDF, métriques
+xgboost==3.2.0         # NB03
+shap==0.51.0           # NB03, NB04 — importance des variables structurées
+joblib==1.5.3          # sérialisation des modèles et des artefacts
+
+# --- Traitement automatique du langage --------------------------------
+spacy==3.8.14          # NB01 — nettoyage et lemmatisation du motif de recours
+# Le modèle de langue n'est pas installable via requirements.txt.
+# Sa version conditionne la lemmatisation, donc le vocabulaire TF-IDF :
+#   python -m spacy download en_core_web_sm     # modèle utilisé : en_core_web_sm 3.8.0
+
+# --- Visualisation ----------------------------------------------------
+matplotlib==3.10.9
+seaborn==0.13.2
+wordcloud==1.9.6       # NB02 — analyse lexicale comparée
+
+# --- Analyse secondaire BERT (NB08 uniquement) ------------------------
+# Lourd (~2 Go) et non requis pour reproduire le modèle opérationnel.
+# La build CUDA n'est pas sur PyPI : l'installer depuis l'index PyTorch
+#   pip install torch==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+# Sur une machine sans GPU, `torch==2.6.0` suffit (exécution plus lente).
+torch==2.6.0+cu124
+transformers==5.8.1    # BioClinicalBERT
+datasets==4.8.5
+
+# --- Environnement d'exécution des notebooks --------------------------
+jupyterlab==4.5.7
+ipykernel==6.31.0
+
