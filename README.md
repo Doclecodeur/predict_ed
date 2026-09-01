@@ -60,7 +60,7 @@ Incremental contribution of variable blocks (logistic regression): vital signs +
 | 04_Modele_sans_transfer | Sensitivity analysis without the "transfer" token |
 | 05_Comparaison_avec_sans_transfer | Comparison of the two versions |
 | 06_Tableaux_Synthese | Summary tables |
-| 07_Analyse_avec_transfer | Temporal validation, thresholds, calibration, subgroups |
+| 07_Validation_temporelle | Temporal validation, thresholds, calibration, subgroups |
 | 08_BERT_vs_TFIDF | Exploratory secondary analysis: TF-IDF vs BioClinicalBERT |
 
 **Features —** 32 encoded structured variables (vital signs, age at visit, ESI acuity, pain, mode of arrival, sex, prior admissions, comorbidity score) + 1,000 TF-IDF text features (unigrams and bigrams), for a total of 1,032 features.
@@ -109,6 +109,7 @@ Random seed — random_state = 42 throughout all notebooks.
 ## Limitations
 - No external validation. Results come from a single centre (BIDMC, Boston). Transportability to a different health system, in particular the French one, remains to be demonstrated.
 - Approximate temporal validation. Because MIMIC-IV dates are shifted during de-identification, the split relies on anchor year groups: it is internal and single-centre.
+- Prediction is made at triage, before laboratory tests, imaging and specialist input. This earliness is a deliberate design choice — only an early estimate can help anticipate bed needs — and it also implies an informational ceiling: the model does not aim to reproduce the final medical decision, which integrates later investigations.
 - Fairness analysis limited to age and sex; lower sensitivity in younger patients warrants monitoring.
 - Exploratory BERT comparison: on this corpus of short chief complaints, BioClinicalBERT shows no clear gain over TF-IDF (text only 0.801 vs 0.826; hybrid architecture 0.877 in both cases).
 - The "transfer" token found in some chief complaints likely reflects an already-initiated care pathway as much as a clinical state; a dedicated sensitivity analysis addresses this.
@@ -196,7 +197,7 @@ Apport progressif des blocs de variables (régression logistique) : constantes +
 | 04_Modele_sans_transfer | Analyse de sensibilité sans le terme « transfer » |
 | 05_Comparaison_avec_sans_transfer | Comparaison des deux versions |
 | 06_Tableaux_Synthese | Tableaux de synthèse |
-| 07_Analyse_avec_transfer | Validation temporelle, seuils, calibration, sous-groupes |
+| 07_Validation_temporelle | Validation temporelle, seuils, calibration, sous-groupes |
 | 08_BERT_vs_TFIDF | Analyse secondaire exploratoire : TF-IDF vs BioClinicalBERT |
 
 **Variables —** 32 variables structurées encodées (constantes vitales, âge estimé au séjour, ESI, douleur, mode d'arrivée, sexe, antécédents, score de comorbidité) + 1 000 variables textuelles TF-IDF (unigrammes et bigrammes), soit 1 032 caractéristiques.
@@ -245,6 +246,7 @@ Graine aléatoire — random_state = 42 dans l'ensemble des notebooks.
 ## Limites
 - Aucune validation externe. Les résultats proviennent d'un centre unique (BIDMC, Boston). La transposabilité à un système de santé différent, en particulier français, reste à démontrer.
 - Validation temporelle approximative. Les dates de MIMIC-IV étant décalées lors de l'anonymisation, la séparation repose sur les groupes d'ancrage : elle est interne et monocentrique.
+- La prédiction est produite au triage, avant la biologie, l'imagerie et l'avis spécialisé. Cette précocité est un choix assumé — seule une estimation précoce permet d'anticiper les besoins en lits — et implique un plafond informationnel : le modèle ne cherche pas à reproduire la décision médicale finale, qui intègre des examens produits plus tard.
 - Analyse d'équité limitée à l'âge et au sexe ; la sensibilité plus faible chez les patients jeunes appelle une surveillance.
 - Comparaison BERT exploratoire : sur ce corpus de motifs courts, BioClinicalBERT n'apporte pas de gain clair par rapport à TF-IDF (texte seul 0,801 vs 0,826 ; architecture hybride 0,877 dans les deux cas).
 - Le terme « transfer » présent dans certains motifs traduit vraisemblablement une orientation déjà engagée autant qu'un état clinique ; une analyse de sensibilité y est consacrée.
