@@ -1,13 +1,13 @@
 # PREDICT-ED
 Early prediction of hospital admission at adult emergency department triage
 
-Validated pipeline version — September 2026
+Validated pipeline version: September 2026
 
 A pre-alert model estimating, at triage, the probability that an adult patient will be admitted to hospital at the end of their emergency department (ED) visit, using structured triage data together with the free-text chief complaint.
 
 > ⚠️ **An organizational support tool, not clinical decision support.** The model is designed as an organizational pre-alert for bed management (anticipating downstream capacity needs). It is not intended to guide an individual clinical decision, and has undergone neither prospective validation nor regulatory clearance.
 
-Work carried out as part of the DU Data Analytics — Université Paris 1 Panthéon-Sorbonne, 2025-2026 cohort.
+Work carried out as part of the DU Data Analytics - Université Paris 1 Panthéon-Sorbonne, 2025-2026 cohort.
 
 ## Background
 ED crowding and boarding (waiting for an inpatient bed after the admission decision) are major organizational problems. Anticipating the probability of admission as early as triage would allow bed managers to prepare downstream capacity sooner, without substituting for clinical judgement.
@@ -58,8 +58,8 @@ Incremental contribution of variable blocks (logistic regression): vital signs +
 |---|---|
 | `01_Construction_Cohorte_EDA.ipynb` | Cohort construction, comorbidities, chief-complaint NLP preprocessing, exploratory analysis |
 | `02_Pretraitement_NLP.ipynb` | Lexical validation of the chief complaint |
-| `03_Modele_avec_transfer_sans_day_of_week.ipynb` | Algorithm comparison (M1/M2/M3), operational model, internal test and final threshold selection |
-| `04_Modele_sans_transfer_sans_day_of_week.ipynb` | Sensitivity analysis without the "transfer" token |
+| `03_Construction_entrainement_modeles.ipynb` | Algorithm comparison (M1/M2/M3), operational model, internal test and final threshold selection |
+| `04_Modele_sans_transfer_robustesse.ipynb` | Sensitivity analysis without the "transfer" token |
 | `05_Comparaison_avec_sans_transfer.ipynb` | Paired comparison of the two temporal evaluations |
 | `06_Tableaux_Synthese.ipynb` | Summary tables |
 | `07_Validation_temporelle.ipynb` | Temporal evaluation, thresholds, calibration, subgroups and clustered bootstrap |
@@ -97,7 +97,7 @@ pip install torch==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu12
 On a machine without a GPU, torch==2.6.0 is sufficient — execution is simply slower. This notebook is not required to reproduce the operational model.
 
 ## Reproducibility
-Reference environment — Python 3.13.13, Windows 11 (Anaconda), NVIDIA RTX 4060 GPU (CUDA 12.4, notebook 08 only). Exact versions are pinned in requirements.txt. The spaCy model version (en_core_web_sm 3.8.0) is stated because lemmatization determines the TF-IDF vocabulary.
+Reference environment - Python 3.13.13, Windows 11 (Anaconda), NVIDIA RTX 4060 GPU (CUDA 12.4, notebook 08 only). Exact versions are pinned in requirements.txt. The spaCy model version (en_core_web_sm 3.8.0) is stated because lemmatization determines the TF-IDF vocabulary.
 
 **Leakage prevention**
 - splits performed at patient level (subject_id): GroupShuffleSplit for train / validation / test, StratifiedGroupKFold for internal cross-validation;
@@ -106,7 +106,7 @@ Reference environment — Python 3.13.13, Windows 11 (Anaconda), NVIDIA RTX 4060
 - comorbidity score built solely from diagnoses of hospital stays completed before ED arrival;
 - model and threshold frozen before evaluation on the held-out set.
 
-Random seed — random_state = 42 throughout all notebooks.
+Random seed - random_state = 42 throughout all notebooks.
 
 **Comorbidity score —** a simplified Charlson-type score: twelve comorbidities out of the nineteen in the full index, with the original weights. Identification relies on ICD-9 and ICD-10 code prefixes inspired by the algorithm of Quan et al. (2005), but simplified; the score is therefore not directly comparable to a Charlson score computed with the full method. The exact patterns are given in notebook 01.
 
@@ -124,7 +124,7 @@ Random seed — random_state = 42 throughout all notebooks.
   author = {Doisy, Wilguy},
   title  = {Early prediction of hospital admission at adult
             emergency department triage},
-  school = {Université Paris 1 Panthéon-Sorbonne — DU Data Analytics},
+  school = {Université Paris 1 Panthéon-Sorbonne - DU Data Analytics},
   year   = {2026}
 }
 ```
@@ -133,7 +133,7 @@ Random seed — random_state = 42 throughout all notebooks.
 Code released under the MIT License (see LICENSE). This license covers the code only: MIMIC-IV-ED data remain subject to the PhysioNet data use agreement.
 
 ## Author
-Wilguy DOISY — Chirurgien et Biostatisticien, DU Data Analytics, Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026
+Wilguy DOISY - Chirurgien et Biostatisticien, DU Data Analytics, Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026
 
 ---
 
@@ -142,13 +142,13 @@ Wilguy DOISY — Chirurgien et Biostatisticien, DU Data Analytics, Université P
 ## PREDICT-ED
 Prédiction précoce de la probabilité d'hospitalisation à l'issue d'un passage aux urgences adultes
 
-Version du pipeline validée — septembre 2026
+Version du pipeline validée : septembre 2026
 
 Modèle de pré-alerte estimant, dès le triage, la probabilité qu'un patient adulte soit hospitalisé à l'issue de son passage aux urgences, à partir des données structurées de triage et du motif de recours en texte libre.
 
 > ⚠️ **Outil d'aide à l'organisation, non d'aide à la décision médicale.** Le modèle est conçu comme une pré-alerte organisationnelle destinée à la gestion des lits (anticipation des besoins d'aval). Il n'a pas vocation à orienter une décision clinique individuelle et n'a fait l'objet d'aucune validation prospective ni d'aucun marquage réglementaire.
 
-Travail réalisé dans le cadre du DU Data Analytics — Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026.
+Travail réalisé dans le cadre du DU Data Analytics - Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026.
 
 ## Contexte
 L'engorgement des services d'urgences et le boarding (attente d'un lit après décision d'hospitalisation) constituent un problème organisationnel majeur. Anticiper dès le triage la probabilité d'hospitalisation permettrait au gestionnaire de lits de préparer l'aval plus tôt, sans se substituer au jugement clinique.
@@ -159,9 +159,9 @@ La plupart des travaux publiés sur cette tâche reposent sur les seules donnée
 - une évaluation interne sur un groupe anonymisé tenu à l'écart du développement, plus proche des conditions réelles de déploiement qu'un découpage aléatoire, mais qui ne constitue ni une validation externe ni une séparation fondée sur les dates calendaires exactes.
 
 ## Résultats principaux
-**Cohorte — MIMIC-IV-ED :** 383 919 séjours, 188 127 patients distincts, taux d'hospitalisation 38,2 %.
+**Cohorte - MIMIC-IV-ED :** 383 919 séjours, 188 127 patients distincts, taux d'hospitalisation 38,2 %.
 
-**Modèle opérationnel —** perceptron multicouche (MLP) hybride, 31 variables structurées + TF-IDF, non recalibré par Platt, conservant le terme `transfer` et excluant `day_of_week`.
+**Modèle opérationnel :** perceptron multicouche (MLP) hybride, 31 variables structurées + TF-IDF, non recalibré par Platt, conservant le terme `transfer` et excluant `day_of_week`.
 
 | Indicateur | Valeur |
 |---|---|
@@ -192,21 +192,21 @@ Les intervalles de confiance des principales performances (AUC, sensibilité, sp
 
 Apport progressif des blocs de variables (régression logistique) : constantes + âge + douleur 0,742 → + contexte, comorbidités, ESI 0,805 → + NLP du motif 0,853.
 
-**Analyse de sensibilité —** après retrait du terme « transfer » du texte (sans exclure les patients concernés) et réentraînement à population constante, l'AUC passe de 0,8873 à 0,8842 (ΔAUC +0,0031 ; IC95 % +0,0023 à +0,0038). L'écart reste faible et le modèle demeure globalement stable sans ce terme.
+**Analyse de sensibilité :** après retrait du terme « transfer » du texte (sans exclure les patients concernés) et réentraînement à population constante, l'AUC passe de 0,8873 à 0,8842 (ΔAUC +0,0031 ; IC95 % +0,0023 à +0,0038). L'écart reste faible et le modèle demeure globalement stable sans ce terme.
 
 ## Pipeline
 | Notebook | Rôle |
 |---|---|
 | `01_Construction_Cohorte_EDA.ipynb` | Construction de la cohorte, comorbidités, prétraitement NLP du motif, analyse exploratoire |
 | `02_Pretraitement_NLP.ipynb` | Validation lexicale du motif de recours |
-| `03_Modele_avec_transfer_sans_day_of_week.ipynb` | Comparaison des algorithmes (M1/M2/M3), modèle opérationnel, test interne et choix du seuil final |
-| `04_Modele_sans_transfer_sans_day_of_week.ipynb` | Analyse de sensibilité sans le terme « transfer » |
+| `03_Construction_entrainement_modeles.ipynb` | Comparaison des algorithmes (M1/M2/M3), modèle opérationnel, test interne et choix du seuil final |
+| `04_Modele_sans_transfer_robustesse.ipynb` | Analyse de sensibilité sans le terme « transfer » |
 | `05_Comparaison_avec_sans_transfer.ipynb` | Comparaison appariée des deux évaluations temporelles |
 | `06_Tableaux_Synthese.ipynb` | Tableaux de synthèse |
 | `07_Validation_temporelle.ipynb` | Évaluation temporelle, seuils, calibration, sous-groupes et bootstrap en grappes |
 | `08_BERT_vs_TFIDF.ipynb` | Analyse secondaire exploratoire : TF-IDF vs BioClinicalBERT |
 
-**Variables —** 31 variables structurées encodées (constantes vitales, âge estimé au séjour, ESI, douleur, mode d'arrivée, sexe, antécédents, score de comorbidité) + 1 000 variables textuelles TF-IDF (unigrammes et bigrammes), soit 1 031 caractéristiques.
+**Variables :** 31 variables structurées encodées (constantes vitales, âge estimé au séjour, ESI, douleur, mode d'arrivée, sexe, antécédents, score de comorbidité) + 1 000 variables textuelles TF-IDF (unigrammes et bigrammes), soit 1 031 caractéristiques.
 
 La progression des modèles est volontaire. Le Modèle 1 utilise l'information physiologique précoce (constantes vitales, âge et douleur) sans ESI. Le Modèle 2 ajoute l'ESI et les autres variables structurées. Le Modèle 3 ajoute le bloc TF-IDF du motif de recours. Le modèle opérationnel est le Modèle 3.
 
@@ -238,7 +238,7 @@ pip install torch==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu12
 Sur une machine sans GPU, torch==2.6.0 suffit — l'exécution est simplement plus lente. Ce notebook n'est pas nécessaire pour reproduire le modèle opérationnel.
 
 ## Reproductibilité
-Environnement de référence — Python 3.13.13, Windows 11 (Anaconda), GPU NVIDIA RTX 4060 (CUDA 12.4, notebook 08 uniquement). Les versions exactes sont figées dans requirements.txt. La version du modèle spaCy (en_core_web_sm 3.8.0) est précisée car la lemmatisation conditionne le vocabulaire TF-IDF.
+Environnement de référence - Python 3.13.13, Windows 11 (Anaconda), GPU NVIDIA RTX 4060 (CUDA 12.4, notebook 08 uniquement). Les versions exactes sont figées dans requirements.txt. La version du modèle spaCy (en_core_web_sm 3.8.0) est précisée car la lemmatisation conditionne le vocabulaire TF-IDF.
 
 **Prévention des fuites d'information**
 - séparation des jeux au niveau du patient (subject_id) : GroupShuffleSplit pour entraînement / validation / test, StratifiedGroupKFold pour la validation croisée interne ;
@@ -247,7 +247,7 @@ Environnement de référence — Python 3.13.13, Windows 11 (Anaconda), GPU NVID
 - score de comorbidité construit à partir des seuls diagnostics d'hospitalisations terminées avant l'arrivée aux urgences ;
 - choix du modèle et du seuil figés avant l'évaluation sur le jeu réservé.
 
-Graine aléatoire — random_state = 42 dans l'ensemble des notebooks.
+Graine aléatoire - random_state = 42 dans l'ensemble des notebooks.
 
 **Score de comorbidité —** score de type Charlson simplifié : douze comorbidités parmi les dix-neuf de l'index complet, avec les pondérations d'origine. L'identification repose sur des préfixes de codes ICD-9 et ICD-10 inspirés de l'algorithme de Quan et al. (2005), mais simplifiés ; le score n'est donc pas directement comparable à un score de Charlson calculé selon la méthode complète. Les motifs exacts figurent dans le notebook 01.
 
@@ -274,4 +274,4 @@ Graine aléatoire — random_state = 42 dans l'ensemble des notebooks.
 Code distribué sous licence MIT (voir LICENSE). Cette licence couvre le code uniquement : les données MIMIC-IV-ED restent soumises à l'accord d'utilisation de PhysioNet.
 
 ## Auteur
-Wilguy DOISY — Chirurgien et Biostatisticien, DU Data Analytics, Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026
+Wilguy DOISY - Chirurgien et Biostatisticien, DU Data Analytics, Université Paris 1 Panthéon-Sorbonne, promotion 2025-2026
